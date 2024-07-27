@@ -151,8 +151,9 @@ function showResult() {
     scoreText.innerText = `Kamu menjawab dengan benar ${score} dari ${questions.length} pertanyaan.`;
 }
 
+//buat fungsi restart untuk meremove class hide untuk beberapa elemen, agar tampil seperti saat awal
 function restartQuiz() {
-    quizContainer.classList.remove('hide');
+    quizContainer.classList.remove('hide');                 
     questionContainer.classList.remove('hide');
     answerButtons.classList.remove('hide');
     startQuiz();
