@@ -30,12 +30,15 @@ body {
     border: none;
     border-radius: 4px;
     background: #007bff;
+    box-shadow: 4px 4px 10px darkblue;
     color: #fff;
     cursor: pointer;
 }
 
 .btn:hover {
     background: #0065b3;
+    box-shadow: 0 0 0 darkblue;
+    color: #fff;
 }
 
 .hide {
