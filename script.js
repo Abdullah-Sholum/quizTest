@@ -1,29 +1,66 @@
 const questions = [                                  //inisiasi array yang berisi beberapa object dengan 2 properti ditiap object
     {                                               //object 1 memiliki 2 properti. 
-        question: 'Apa ibukota Indonesia?',         //properti pertama merupakan question yang berupa string
+        question: 'Apa Makanan Kesukaan Sholum',         //properti pertama merupakan question yang berupa string
         answers: [                                   //properti kedua merupakan answer yang berupa array yang berisi object-object
-            { text: 'Jakarta', correct: true },       //object 1 memiliki properti text string & correct boolean.
-            { text: 'Surabaya', correct: false },
-            { text: 'Bandung', correct: false },
-            { text: 'Yogyakarta', correct: false }
+            { text: 'Soto', correct: false },       //object 1 memiliki properti text string & correct boolean.
+            { text: 'Rawon', correct: false },
+            { text: 'Pecel Ibuke', correct: true },
+            { text: 'Nasi Goreng Bpake', correct: true },
+            { text: 'Rujak Ibuke', correct: true },
+            { text: 'Soto babat', correct: true }
         ]
     },
     {
-        question: 'Berapa jumlah pulau di Indonesia?',
+        question: 'Berapa jumlah game yang aktif dimainka Sholum',
         answers: [
-            { text: '13.466', correct: true },
-            { text: '10.000', correct: false },
-            { text: '17.504', correct: false },
-            { text: '8.000', correct: false }
+            { text: '2', correct: false },
+            { text: '7', correct: false },
+            { text: '3', correct: true },
+            { text: '6', correct: false }
         ]
     },
     {
-        question: 'Siapakah presiden pertama Indonesia?',
+        question: 'Berapa level akun HI3, GI & HSR Sholum',
         answers: [
-            { text: 'Sukarno', correct: true },
-            { text: 'Suharto', correct: false },
-            { text: 'BJ Habibie', correct: false },
-            { text: 'Gus Dur', correct: false }
+            { text: '80, 55, 45', correct: false },
+            { text: '98, 65, 88', correct: false },
+            { text: '88, 60, 70', correct: true },
+            { text: '90, 70, 80', correct: false }
+        ]
+    },
+    {
+        question: 'Di HI3 rank tertinggi Superstring Dimension yang dicapai Sholum apa?',
+        answers: [
+            { text: 'Sinfull', correct: false },
+            { text: 'Agony', correct: false },
+            { text: 'Nirvana', correct: false },
+            { text: 'Redlotus', correct: true }
+        ]
+    },
+    {
+        question: 'Di HI3 siapa valkrye Favorit Sholum',
+        answers: [
+            { text: 'Kiana', correct: true },
+            { text: 'Yae Sakura', correct: true },
+            { text: 'Bronya', correct: true },
+            { text: 'Mei', correct: true },
+            { text: 'Durandal', correct: true },
+            { text: 'Luna', correct: true },
+            { text: 'Rita', correct: true },
+            { text: 'Raven', correct: false }
+        ]
+    },
+    {
+        question: 'Di HI3 siapa valkrye Favorit Sholum',
+        answers: [
+            { text: 'Kiana', correct: true },
+            { text: 'Yae Sakura', correct: true },
+            { text: 'Bronya', correct: true },
+            { text: 'Mei', correct: true },
+            { text: 'Durandal', correct: true },
+            { text: 'Luna', correct: true },
+            { text: 'Rita', correct: true },
+            { text: 'Raven', correct: false }
         ]
     }
 ];
