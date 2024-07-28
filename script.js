@@ -44,6 +44,7 @@ const questions = [                                     //inisiasi array yang be
             { text: 'Yae Sakura', correct: true },
             { text: 'Bronya', correct: true },
             { text: 'Mei', correct: true },
+            { text: 'Elysia', correct: true },
             { text: 'Durandal', correct: true },
             { text: 'Luna', correct: true },
             { text: 'Rita', correct: true },
@@ -51,16 +52,45 @@ const questions = [                                     //inisiasi array yang be
         ]
     },
     {
-        question: 'Di HI3 siapa valkrye Favorit Sholum',
+        question: 'Di GI siapa Character Favorit Sholum',
         answers: [
-            { text: 'Kiana', correct: true },
-            { text: 'Yae Sakura', correct: true },
-            { text: 'Bronya', correct: true },
-            { text: 'Mei', correct: true },
-            { text: 'Durandal', correct: true },
-            { text: 'Luna', correct: true },
-            { text: 'Rita', correct: true },
-            { text: 'Raven', correct: false }
+            { text: 'Yae Miko', correct: true },
+            { text: 'Raiden Shogun', correct: true },
+            { text: 'Nahida', correct: true },
+            { text: 'Furina', correct: true },
+            { text: 'Zhongli', correct: true },
+            { text: 'Diluc', correct: true },
+            { text: 'Childe', correct: false },
+            { text: 'Scaramouche', correct: false }
+        ]
+    },
+    {
+        question: 'Di HSR siapa Character Favorit Sholum',
+        answers: [
+            { text: 'FireFly', correct: true },
+            { text: 'Bronya SW', correct: true },
+            { text: 'Bronya Rand', correct: true },
+            { text: 'Seele', correct: true },
+            { text: 'Ruan Mei', correct: true },
+            { text: 'Boothil', correct: false },
+            { text: 'JingYuan', correct: false }
+        ]
+    },
+    {
+        question: 'Layout controller favorit Sholum',
+        answers: [
+            { text: 'Xbox', correct: true },
+            { text: 'Nintendo', correct: false },
+            { text: 'DualShock', correct: false },
+        ]
+    },
+    {
+        question: 'apa genre game kesukaan Sholum',
+        answers: [
+            { text: 'RPG', correct: true },
+            { text: 'FPS', correct: true },
+            { text: 'Action', correct: true },
+            { text: 'Simulator', correct: false },
         ]
     }
 ];
@@ -130,17 +160,16 @@ function resetState() {                         //deklarasi fungsi
 //buat fungsi select answer
 function selectAnswer(e) {                      //buat fungsi dengan argumen e
     const selectedButton = e.target;            //inisiasi dengan mentargetkan variabel e *menetapkan elemen tombol yang di klik oleh pengguna kedalam variabel
-    const correct = selectedButton.dataset.correct === 'true';  //inisiasi dengan fungsi mengecek didalam dataset.correct apakah nilianya true
-    if (correct) {                      //jika ya
-        score++;                        //score tambah 1
+    selectedButton.classList.toggle('checked'); //beri button dengan class tanda checked
+
+    const checkedButtons = document.querySelectorAll('.checked');       
+    const correctAnswers = questions[currentQuestionIndex].answers.filter(answer => answer.correct);
+    const isCorrect =  Array.from(checkedButtons).every(button => button.dataset.correct === 'true')
+        && correctAnswers.length === checkedButtons.length;
+    if(isCorrect) {
+        score++;
     }
-    // Hapus status 'checked' dari semua tombol jawaban                 
-    const buttons = document.querySelectorAll('#answer-buttons .btn');      //inisiasi button dengan mangambil semua selector dengan class .btn yang memiliki parent #answer-buttons
-    buttons.forEach(button => {                                         //buat perulangan berdasarkan buttons, kemudian masukkan tiap-tiap value buttons kedalam button
-        button.classList.remove('checked');                             //hapus class checked di button
-    });
-    // Tambahkan status 'checked' pada tombol yang dipilih
-    selectedButton.classList.add('checked');                            //tambahkan class checked ke variabel
+
     if (currentQuestionIndex < questions.length - 1) {                  //buat percabangan jika index dari question kurang dari panjang question -1
         nextButton.classList.remove('hide');                            //hapus class hide tombol next / tampilkan tombol next
     } else {                                                            //sebaliknya
@@ -170,3 +199,4 @@ function restartQuiz() {
 
 //summon startQuiz
 startQuiz();
+
