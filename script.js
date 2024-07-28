@@ -1,8 +1,8 @@
-const questions = [                                  //inisiasi array yang berisi beberapa object dengan 2 properti ditiap object
-    {                                               //object 1 memiliki 2 properti. 
-        question: 'Apa Makanan Kesukaan Sholum',         //properti pertama merupakan question yang berupa string
-        answers: [                                   //properti kedua merupakan answer yang berupa array yang berisi object-object
-            { text: 'Soto', correct: false },       //object 1 memiliki properti text string & correct boolean.
+const questions = [                                     //inisiasi array yang berisi beberapa object dengan 2 properti ditiap object
+    {                                                   //object 1 memiliki 2 properti. 
+        question: 'Apa Makanan Kesukaan Sholum',        //properti pertama merupakan question yang berupa string
+        answers: [                                      //properti kedua merupakan answer yang berupa array yang berisi object-object
+            { text: 'Soto', correct: false },           //object 1 memiliki properti text string & correct boolean.
             { text: 'Rawon', correct: false },
             { text: 'Pecel Ibuke', correct: true },
             { text: 'Nasi Goreng Bpake', correct: true },
@@ -65,11 +65,11 @@ const questions = [                                  //inisiasi array yang beris
     }
 ];
 
-//inisiasi komponen penunjang 
+//inisiasi variabel untuk menyimpan index & score
 let currentQuestionIndex = 0;
 let score = 0;
 
-//bagian ini merupakan inisiasi komponen dengan mengambil elemen dengan id dari dokumen
+//bagian ini merupakan inisiasi komponen dengan mengambil elemen dari dokumen berdasarkan id
 const quizContainer = document.getElementById('quiz-container');
 const questionContainer = document.getElementById('question-container');
 const answerButtons = document.getElementById('answer-buttons');
@@ -79,75 +79,84 @@ const scoreText = document.getElementById('score');
 const restartButton = document.getElementById('restart-btn');
 
 //buat fungsi untuk memberi event listener click pada nextButton
-nextButton.addEventListener('click', () => {        
-    currentQuestionIndex++;                         //tambahkan 1 question index
-    if (currentQuestionIndex < questions.length) {    //jika index kurang dari panjang question
-        setNextQuestion();                           //panggil fungsi 
-    } else {                                        //sebaliknya
-        showResult();                               //panggil fungsi
+nextButton.addEventListener('click', () => {            //buat event listener click untuk tombol next kemudian buat fungsi anonim
+    currentQuestionIndex++;                             //tambahkan 1 question index
+    if (currentQuestionIndex < questions.length) {      //jika index kurang dari panjang question
+        setNextQuestion();                              //panggil fungsi 
+    } else {                                            //sebaliknya
+        showResult();                                   //panggil fungsi
     }
 });
 
-restartButton.addEventListener('click', restartQuiz); //tambah event listener click ke restartButton dengan memanggil fungsi
+restartButton.addEventListener('click', restartQuiz);   //tambah event listener click ke restartButton dengan memanggil fungsi
 
 //buat fungsi untuk memulai quiz
 function startQuiz() {
-    currentQuestionIndex = 0;      //inisiasi index question ke 0
-    score = 0;                      //atur score 0
-    nextButton.classList.remove('hide');             //fungsi classList.remove()/add() digunakan untuk menambah/menghapus class dari sebuah elemen. dari konteks kode, elemen memiliki class hide yang di beri properti display none di css. jadi memiliki arti remove hide elemen.
-    resultContainer.classList.add('hide');           //add class hide ke variabel/elemen
-    setNextQuestion();                               //panggil fungsi
+    currentQuestionIndex = 0;                       //inisiasi index question ke 0
+    score = 0;                                      //inisiasi score 0
+    nextButton.classList.remove('hide');            //fungsi classList.remove()/add() digunakan untuk menambah/menghapus class dari sebuah elemen. dari konteks kode, elemen memiliki class hide yang di beri properti display none di css. jadi memiliki arti remove hide elemen.
+    resultContainer.classList.add('hide');          //add class hide ke variabel/elemen sehingga container result tidak ditampilkan
+    setNextQuestion();                              //panggil fungsi
 }
 
 //buat fungsi setNextQuestion
 function setNextQuestion() {
-    resetState();                                   //panggil fungsi
-    showQuestion(questions[currentQuestionIndex]);   //panggil fungsi dengan parameter[index]
+    resetState();                                       //panggil fungsi
+    showQuestion(questions[currentQuestionIndex]);      //panggil fungsi dengan parameter(question[index])
 }
-
+// ambil array question, akses object answer. kemudian buat perulangan sejumlah properti milik answer
 //buat fungsi untuk menampilkan question
-function showQuestion(question) {
-    questionContainer.innerText = question.question;            //mengambil properti question dari object milik array question, kemudian ditampilkan dengan innerHTML sebagai text di elemen questionContainer
-    question.answers.forEach(answer => {                         //ambil array question, akses object answer. kemudian buat perulangan sejumlah properti milik answer
-        const button = document.createElement('button');       //inisiasi dengan membuat elemen button
-        button.innerText = answer.text;                         //atur text pada button dengan answer dari question
-        button.classList.add('btn');                             //tambahkan class btn ke button
-        if (answer.correct) {                                   //jika answer correct 
-            button.dataset.correct =  answer.correct;
+function showQuestion(question) {                           //buat fungsi dengan argumen question
+    questionContainer.innerText = question.question;        //mengambil properti question dari object milik array question, kemudian ditampilkan dengan innerHTML sebagai text di elemen questionContainer
+    question.answers.forEach(answer => {                    //akses properti answers milik array dari question, kemudian lakukan perulangan untuk setiap answers dan masukkan ke answer
+        const button = document.createElement('button');    //inisiasi dengan membuat elemen button
+        button.innerText = answer.text;                     //atur text pada button dengan answer yang di akses oleh perulangan for each
+        button.classList.add('btn');                        //tambahkan class btn ke button
+        if (answer.correct) {                               //jika properti answer correct / bernilai true. karena nilai dari answer merupakan bilangan boelan
+            button.dataset.correct =  answer.correct;       //button.dataset.correct merupakan cara menyimpan data custom pada html menggunakan atribut 'data-*, disini nilai true dari answer.correct disimpan di atribut 'data-correct' pada tombol button
         }
-        button.addEventListener('click', selectAnswer);         //buat event listener click untuk button untuk memanggil fungsi
-        answerButtons.appendChild(button);                       //jadikan button child answerButton
+        button.addEventListener('click', selectAnswer);     //buat event listener click untuk button untuk memanggil fungsi
+        answerButtons.appendChild(button);                  //jadikan button sebagai child answerButton
     });
 }   
 
 // buat fungsi untuk reset
-function resetState() {
-    while (answerButtons.firstChild) {
-        answerButtons.removeChild(answerButtons.firstChild);
+function resetState() {                         //deklarasi fungsi
+    while (answerButtons.firstChild) {          //buat perulangan while. dengan kondisi untuk mengecek apakah child pertama dari answerButtons ada / tidak, jika ada maka true & kondisi akan dilanjutkan
+        answerButtons.removeChild(answerButtons.firstChild);    //menghapus setiap child dari answerButton.
     }
 }
 
 //buat fungsi select answer
-function selectAnswer(e) {
-    const selectedButton = e.target;
-    const correct = selectedButton.dataset.correct === 'true';
-    if (correct) {
-        score++;
+function selectAnswer(e) {                      //buat fungsi dengan argumen e
+    const selectedButton = e.target;            //inisiasi dengan mentargetkan variabel e *menetapkan elemen tombol yang di klik oleh pengguna kedalam variabel
+    const correct = selectedButton.dataset.correct === 'true';  //inisiasi dengan fungsi mengecek didalam dataset.correct apakah nilianya true
+    if (correct) {                      //jika ya
+        score++;                        //score tambah 1
     }
-    if (currentQuestionIndex < questions.length - 1) {
-        nextButton.classList.remove('hide');
-    } else {
-        showResult();
+    // Hapus status 'checked' dari semua tombol jawaban                 
+    const buttons = document.querySelectorAll('#answer-buttons .btn');      //inisiasi button dengan mangambil semua selector dengan class .btn yang memiliki parent #answer-buttons
+    buttons.forEach(button => {                                         //buat perulangan berdasarkan buttons, kemudian masukkan tiap-tiap value buttons kedalam button
+        button.classList.remove('checked');                             //hapus class checked di button
+    });
+    // Tambahkan status 'checked' pada tombol yang dipilih
+    selectedButton.classList.add('checked');                            //tambahkan class checked ke variabel
+    if (currentQuestionIndex < questions.length - 1) {                  //buat percabangan jika index dari question kurang dari panjang question -1
+        nextButton.classList.remove('hide');                            //hapus class hide tombol next / tampilkan tombol next
+    } else {                                                            //sebaliknya
+        showResult();                                                   //panggil fungsi
     }
 }
 
-// buat fungsi showResult
-function showResult() {
+// buat fungsi showResult   
+function showResult() {                             
+    //menambahkan class hide ke beberapa komponen, agar komponen tersebut disembunyikan dokumen
     quizContainer.classList.add('hide');
     questionContainer.classList.add('hide');
     answerButtons.classList.add('hide');
     nextButton.classList.add('hide');
     resultContainer.classList.remove('hide');
+    //tampilkan score dengan menggunakan innerHTML + string
     scoreText.innerText = `Kamu menjawab dengan benar ${score} dari ${questions.length} pertanyaan.`;
 }
 
@@ -159,4 +168,5 @@ function restartQuiz() {
     startQuiz();
 }
 
+//summon startQuiz
 startQuiz();

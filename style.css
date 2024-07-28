@@ -40,6 +40,11 @@ body {
     box-shadow: 0 0 0 darkblue;
     color: #fff;
 }
+.checked {
+    background-color: #28a745;
+    color: #fff;
+}
+
 .btn-next {
     display: block;
     width: 100%;
